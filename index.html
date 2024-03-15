@@ -215,7 +215,7 @@
 
 
 	
-
+<body onload="playAllVideos()">
 <div id="results" class="content">
       <h2>Our Results</h2>
 	    <h3>Text-driven Editing</h3>
@@ -228,31 +228,31 @@
 			</tr>
 			<tr>
 		            <td style="max-width: 130px; max-height: 130px;">
-		                <video playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
-		                    <source  src="./videos/editing/elf/inference_000.mp4" type="video/mp4">
-		                </video>
+				<video id="video1" playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
+				    <source  src="./videos/editing/elf/inference_000.mp4" type="video/mp4">
+				</video>
 		                <p align="center">Original NeRF</p>
 		            </td>
 		            <td style="max-width: 130px; max-height: 130px;">
-		                <video playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
+		                <video id="video2" playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
 		                    <source  src="./videos/editing/elf/inference_002.mp4" type="video/mp4">
 		                </video>
 		                <p align="center">Our inference 1</p>
 		            </td>
 		            <td style="max-width: 130px; max-height: 130px;">
-		                <video playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
+		                <video id="video3" playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
 		                    <source  src="./videos/editing/elf/inference_012.mp4" type="video/mp4">
 		                </video>
 		                <p align="center">Our inference 2</p>
 		            </td>
 		            <td style="max-width: 130px; max-height: 130px;">
-		                <video playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
+		                <video id="video4" playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
 		                    <source  src="./videos/editing/elf/inference_016.mp4" type="video/mp4">
 		                </video>
 		                <p align="center">Our inference 3</p>
 		            </td>
 		            <td style="max-width: 130px; max-height: 130px;">
-		                <video playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
+		                <video id="video5" playsinline controls autoplay muted loop style="width: 100%; height: 100%;">
 		                    <source  src="./videos/editing/elf/inference_009_4.mp4" type="video/mp4">
 		                </video>
 		                <p align="center">Our inference 4</p>
@@ -508,6 +508,14 @@
 	
 	
 </div>
+<script>
+function playAllVideos() {
+    var videos = document.getElementsByTagName("video");
+    for (var i = 0; i < videos.length; i++) {
+        videos[i].play();
+    }
+}
+</script>
 
 
 
