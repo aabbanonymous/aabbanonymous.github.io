@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Ctrl-Room: Controllable Text-to-3D Room Meshes Generation with Layout Constraints">
+  <meta name="keywords" content="Ctrl-Room, MVDiffusion, Text2Room">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ctrl-Room: Controllable Text-to-3D Room Meshes Generation with Layout Constraints</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://fangchuan.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://sweetdreamerr.github.io/">
+            SweetDreamerr
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Ctrl-Room: Controllable Text-to-3D Room Meshes Generation with Layout Constraints</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://fangchuan.github.io/ctrl-room.github.io/">Chuan Fang</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://fangchuan.github.io/ctrl-room.github.io/">Xiaotao Hu</a><sup>2,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://fangchuan.github.io/ctrl-room.github.io/">Kunming Luo</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://fangchuan.github.io/ctrl-room.github.io/">Ping Tan</a><sup>1,2</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Hong Kong University of Science and Technology,</span>
+            <span class="author-block"><sup>2</sup>Light Illusions</span>
+            <span class="author-block"><sup>3</sup>Nankai University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://browse.arxiv.org/pdf/2310.03602.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2310.03602"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/fangchuan/Ctrl-Room"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(coming soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://structured3d-dataset.org/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser-bedroom" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_bedroom.mp4"
+                type="video/mp4">
+      </video>
+      <video id="teaser-livingroom" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_livingroom.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Ctrl-Room</span> turns a text prompt into
+        a vivid 3D room mesh.
+      </h2>
+      <video id="teaser-remove" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_remove_editing_h264.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Ctrl-Room</span> remove the chair in front of the table.
+      </h2>
+      <video id="teaser-replace" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_replace_editing_h264.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Ctrl-Room</span> replace the tv and tv-stand.
+      </h2>
+      <video id="teaser-move" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_move_editing_h264.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Ctrl-Room</span> moves the picture upward.
+      </h2>
+      <video id="teaser-resize" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser_resize_editing_h264.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Ctrl-Room</span> resizes the tv into half of the original width.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/teaser0_scene_03011_13456.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/teaser1_scene_03084_641793.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/teaser2_scene_03049_284331.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/teaser3_scene_03300_190736.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Text-driven 3D indoor scene generation could be useful for gaming, film industry, and AR/VR applications. 
+            However, existing methods cannot faithfully capture the room layout, nor do they allow flexible editing of individual objects in the room.
+          </p>
+          <p>
+            To address these problems, we present <span class="dnerf">Ctrl-Room</span>, which is able to generate convincing 3D rooms with designer-style layouts and high-fidelity textures from just a text prompt. 
+            Moreover, <span class="dnerf">Ctrl-Room</span> enables versatile interactive editing operations such as resizing or moving individual furniture items. 
+            Our key insight is to separate the modeling of layouts and appearance. Our proposed method consists of two stages, a `Layout Generation Stage' and an `Appearance Generation Stage'.  
+            The `Layout Generation Stage' trains a text-conditional diffusion model to learn the layout distribution with our holistic scene code parameterization. 
+            Next, the `Appearance Generation Stage' employs a fine-tuned ControlNet to produce a vivid panoramic image of the room guided by the 3D scene layout and text prompt.
+          </p>
+          <p>
+            In this way, we achieve a high-quality 3D room with convincing layouts and lively textures. 
+            Benefiting from the scene code parameterization, we can easily edit the generated room model through our mask-guided editing module, 
+            without expensive editing-specific training. 
+            Extensive experiments on the Structured3D dataset demonstrate that our method outperforms existing methods in producing more reasonable, 
+            view-consistent, and editable 3D rooms from natural language prompts. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <div>
+      <!-- system overview -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">System Overview</h2>
+        <img src="./static/images/system_overview.jpg"
+             class="interpolation-image"
+             alt="Interpolate start reference image."/>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+    <!-- Panorama generation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Panorama Generation</h2>
+
+        <!-- Comparison. -->
+        <h3 class="title is-4">Comparison with state-of-the-art</h3>
+        <div class="content has-text-justified">
+          <p>
+            We conduct extensive comparison with the state-of-the-art methods on the generated panorama.Given a simple partial-scene text prompt, 
+            our approach obtains better RGB panorama than that of Text2Light~\citep{chen2022text2light} and MVDiffusion~\citep{tang2023mvdiffusion}, 
+            which demonstrates the effectiveness of our well-designed framework. While Text2Light suffers from the inconsistent loop and 
+            unexpected content of the generated panorama, MVDiffusion fails to recover a reasonable room layout from the text prompt.
+          </p>
+        </div>
+
+        <div class="hero-body">
+          <img src="./static/images/pano_comp_0.jpg"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="hero-body">
+          <img src="./static/images/pano_comp_1.jpg"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="hero-body">
+          <img src="./static/images/pano_comp_2.jpg"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <br/>
+        <!--/ Panorama Comparison. -->
+
+        <h2 class="title is-3">3D Room Generation</h2>
+        <!-- Comparison. -->
+        <h3 class="title is-4">Comparison with state-of-the-art</h3>
+
+        <div class="hero-body">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mesh_comp_scene_03049_284331.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="hero-body">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mesh_comp_scene_03084_641793.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Panorama generation. -->
+
+  </div>
+</section>
+
+<section>
+  <div class="container is-max-desktop">
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Links</h2>
+  
+          <div class="content has-text-justified">
+            <p>
+              There's a lot of excellent work that was introduced before ours.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2303.11989">Text2Room</a> introduces an iterative way to generate the 3D room mesh through 2D Diffusion Model.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2305.11588">Text2NeRF</a> replaces the rigid mesh with NeRF to recover the 3D indoor scene and further expand the application into outdoor scenes.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2307.01097">Text2Light</a> creates HDR panoramic images from text using a multi-stage auto-regressive generative model.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2307.01097">MVDiffusion</a> proposed Correspondence-Aware mechanism to get appearance-consistent images during multi-view image generation.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{fang2023ctrl,
+      title={Ctrl-Room: Controllable Text-to-3D Room Meshes Generation with Layout Constraints},
+      author={Fang, Chuan and Hu, Xiaotao and Luo, Kunming and Tan, Ping},
+      journal={arXiv preprint arXiv:2310.03602},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          
+          <p>
+            Website source code is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
